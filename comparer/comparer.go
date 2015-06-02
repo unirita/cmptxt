@@ -1,7 +1,11 @@
 // Package comparer implements compare functions.
 package comparer
 
-import "regexp"
+import (
+	"bufio"
+	"io"
+	"regexp"
+)
 
 type comparer struct {
 	ignorePatterns []*regexp.Regexp
@@ -29,8 +33,26 @@ func (c *comparer) AddIgnorePattern(pattern string) error {
 	return nil
 }
 
-// CompareLine compares two line.
-// If they are same, return true. Otherwise, return false.
+// Compare compares two texts in Reader.
+func (c *comparer) Compare(base io.Reader, target io.Reader) bool {
+	baseScanner := bufio.NewScanner(base)
+	targetScanner := bufio.NewScanner(target)
+	for {
+		isBaseEOF := !baseScanner.Scan()
+		isTargetEOF := !targetScanner.Scan()
+		if isBaseEOF && isTargetEOF {
+			return true
+		} else if isBaseEOF || isTargetEOF {
+			return false
+		}
+
+		if !c.CompareLine(baseScanner.Text(), targetScanner.Text()) {
+			return false
+		}
+	}
+}
+
+// CompareLine compares two lines.
 func (c *comparer) CompareLine(base string, target string) bool {
 	for _, ptn := range c.ignorePatterns {
 		base = ptn.ReplaceAllString(base, "")
