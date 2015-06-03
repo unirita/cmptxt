@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/unirita/logcmp/comparer"
+	"github.com/unirita/cmptxt/comparer"
 )
 
 type arguments struct {
@@ -92,10 +92,11 @@ func fetchArgs() *arguments {
 
 func showUsage() {
 	usage := `Usage:
-    logcmp [-f] [-i pttern1 pttern2 ...] file1 file2
+    cmptxt [-f] [-i pttern1 pttern2 ...] file1 file2
 
 Options:
     -f : Compare files in free order.
+	-i : Use Ignore patterns.
 `
 	fmt.Println(usage)
 }
