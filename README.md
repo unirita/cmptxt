@@ -1,4 +1,4 @@
-logcmp
+cmptxt
 ====
 
-logcmp is a log compare tool.
+cmptxt is a text compare tool.
