@@ -92,11 +92,11 @@ func fetchArgs() *arguments {
 
 func showUsage() {
 	usage := `Usage:
-    cmptxt [-f] [-i pttern1 pttern2 ...] file1 file2
+    cmptxt [-f] [-i pattern1 pattern2 ...] file1 file2
 
 Options:
     -f : Compare files in free order.
-	-i : Use Ignore patterns.
+    -i : Use ignore patterns.
 `
 	fmt.Println(usage)
 }
